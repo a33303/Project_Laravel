@@ -1,0 +1,12 @@
+*********
+USER: user
+
+*******
+PHONE: +7 919 767-00-00
+
+*******
+EMAIL: a33300@mail.ru
+
+DESCRIPTION: text
+
+*******

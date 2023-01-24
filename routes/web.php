@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrderUploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,20 +21,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// main route home
 Route::get('/', IndexController::class)
     ->name('home');
 
 // admin route
-Route::group(['prefix' => 'admin'], static function() {
+Route::group(['prefix' => 'admin', 'as'=> 'admin.'], static function() {
     Route::get('/', AdminController::class)
-        ->name('admin.index');
+        ->name('index');
+    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('news', AdminNewsController::class);
 });
 
-// Приветствие
-Route::get('/hello/{name}', static function (string $name): string {
-    return "Hello, {$name}";
-});
-
+// main route news
 Route::group(['prefix' => ''], static function(){
     // Вывод новостей
     Route::get('/news', [NewsController::class, 'index'])
@@ -41,12 +45,23 @@ Route::group(['prefix' => ''], static function(){
         ->name('news.show');
 });
 
+// main route categories
 Route::group(['prefix' => ''], static function(){
     Route::get('/categories', [CategoriesController::class, 'index'])
         ->name('categories');
     Route::get('/categories/{id}/show', [CategoriesController::class, 'show'])
         ->where('id', '\d+')
         ->name('categories.show');
+});
+
+Route::resource('/feedback', FeedbackController::class);
+Route::resource('/upload', OrderUploadController::class);
+
+
+
+// Приветствие
+Route::get('/hello/{name}', static function (string $name): string {
+    return "Hello, {$name}";
 });
 
 
