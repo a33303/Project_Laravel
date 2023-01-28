@@ -1,5 +1,13 @@
 <?php
 
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Admin\IndexController as AdminController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrderUploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +21,49 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+// main route home
+Route::get('/', IndexController::class)
+    ->name('home');
+
+// admin route
+Route::group(['prefix' => 'admin', 'as'=> 'admin.'], static function() {
+    Route::get('/', AdminController::class)
+        ->name('index');
+    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('news', AdminNewsController::class);
 });
+
+// main route news
+Route::group(['prefix' => ''], static function(){
+    // Вывод новостей
+    Route::get('/news', [NewsController::class, 'index'])
+        ->name('news'); //именуем роутер
+    //Вывод одной новости
+    Route::get('/news/{id}/show', [NewsController::class, 'show'])
+    ->where('id','\d+') // закрыли окно дебага, при введенём неверном значении
+        ->name('news.show');
+});
+
+// main route categories
+Route::group(['prefix' => ''], static function(){
+    Route::get('/categories', [CategoriesController::class, 'index'])
+        ->name('categories');
+    Route::get('/categories/{id}/show', [CategoriesController::class, 'show'])
+        ->where('id', '\d+')
+        ->name('categories.show');
+});
+
+Route::resource('/feedback', FeedbackController::class);
+Route::resource('/upload', OrderUploadController::class);
+
+
 
 // Приветствие
 Route::get('/hello/{name}', static function (string $name): string {
     return "Hello, {$name}";
 });
+
 
 // Вывод новостей
 $text = "This is my project Laravel to learn Framework!";
@@ -37,14 +80,3 @@ Route::get('/project', static function () use ($text): string {
     </html>
     php;
 });
-
-// Вывод новостей
-Route::get('/news', static function (): string {
-    return "News to Day!";
-});
-
-//Вывод одной новости
-Route::get('/news/{id}', static function (int $id): string {
-    return "News with #ID {$id}";
-});
-
