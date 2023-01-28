@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\SourceController as AdminSourceController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NewsController;
@@ -32,6 +33,7 @@ Route::group(['prefix' => 'admin', 'as'=> 'admin.'], static function() {
         ->name('index');
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class);
+    Route::resource('source', AdminSourceController::class);
 });
 
 // main route news

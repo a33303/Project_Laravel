@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
@@ -15,14 +16,26 @@ class CategoriesController extends Controller
 
     public function index(): View|Factory|Application
     {
+        $model = new Category();
+        $listCategories = $model->getCategories();
+
         return \view('categories.index', [
-            'categories' => $this->getCategories()
+            'listCategories' => $listCategories
         ]);
+//        return \view('categories.index', [
+//            'categories' => $this->getCategories()
+//        ]);
     }
     public function show(int $id): View|Factory|Application
     {
+        $model = new Category();
+        $listCategories = $model->getCategoryById($id);
         return \view('categories.show', [
-            'categories' => $this->getCategories($id)
+            'listCategories' => $listCategories
         ]);
+
+//        return \view('categories.show', [
+//            'categories' => $this->getCategories($id)
+//        ]);
     }
 }

@@ -7,6 +7,12 @@
         </div>
     </div>
     <div>
+        @if ($errors->any())
+            @foreach($errors->all() as $error)
+            <x-alert type="danger" :message="$error"></x-alert>
+            @endforeach
+        @endif
+
         <form method="post" action="{{ route('admin.news.store') }}">
             @csrf
             <div class="form-group">
