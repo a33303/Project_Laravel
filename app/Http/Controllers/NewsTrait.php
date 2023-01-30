@@ -36,7 +36,7 @@ trait NewsTrait
     public function getCategories(int $id = null): array
     {
         $categories = [];
-        $quantityCategories = 10;
+        $quantityCategories = 7;
 
         if($id === null)
         {

@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+
 class IndexController extends Controller
 {
-    public function index(): string
+    public function __invoke(Request $request): View
     {
-        return <<<php
-        <h1>Добро пожаловать!</h1>
-        Последние новости<br><br>
-        <a href="/news">Посмотреть новости</a><br>
-        <a href="/categories">Категории новостей</a>
-        php;
+        //$news =
+        return \view('home.index');
     }
 }
