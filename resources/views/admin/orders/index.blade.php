@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">Источники</h1>
+        <h1 class="h2">Заказы выгрузки данных</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="{{ route('admin.source.create') }}">Добавить новость</a>
+
         </div>
     </div>
 
@@ -12,20 +12,24 @@
             <thead>
             <tr>
                 <th>#ID</th>
-                <th>Источник</th>
-                <th>Ссылка</th>
+                <th>ФИО</th>
+                <th>Телефон</th>
+                <th>Почта</th>
+                <th>Источник данных</th>
                 <th>Дата добавления</th>
                 <th>Действия</th>
             </tr>
             </thead>
             <tbody>
-            @forelse($listSource as $source)
+            @forelse($listOrderSource as $order)
                 <tr>
-                    <td>{{ $source->id }}</td>
-                    <td>{{ $source->name_source }}</td>
-                    <td>{{ $source->link }}</td>
-                    <td>{{ $source->created_at }}</td>
-                    <td><a href="{{ route('admin.source.edit', ['source' => $source]) }}">Изм.</a> &nbsp; <a href="" style="color: red">Уд.</a></td>
+                    <td>{{ $order->id }}</td>
+                    <td>{{ $order->user_name }}</td>
+                    <td>{{ $order->phone }}</td>
+                    <td>{{ $order->email }}</td>
+                    <td>{{ $order->source }}</td>
+                    <td>{{ $order->created_at }}</td>
+                    <td><a href="{{ route('admin.orders.edit', ['order' => $order]) }}">Изм.</a> &nbsp; <a href="" style="color: red">Уд.</a></td>
                 </tr>
             @empty
                 <tr>

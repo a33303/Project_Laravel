@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\SourceController as AdminSourceController;
+use App\Http\Controllers\Admin\OrderSourceController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\FeedbackController;
@@ -34,6 +35,7 @@ Route::group(['prefix' => 'admin', 'as'=> 'admin.'], static function() {
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class);
     Route::resource('source', AdminSourceController::class);
+    Route::resource('orders', OrderSourceController::class);
 });
 
 // main route news
@@ -54,6 +56,7 @@ Route::group(['prefix' => ''], static function(){
     Route::get('/categories/{id}/show', [CategoriesController::class, 'show'])
         ->where('id', '\d+')
         ->name('categories.show');
+
 });
 
 Route::resource('/feedback', FeedbackController::class);
@@ -66,6 +69,12 @@ Route::get('/hello/{name}', static function (string $name): string {
     return "Hello, {$name}";
 });
 
+// Collection
+Route::get('/collection', function() {
+   $names = ['Ann', 'Billy', 'Sam', 'Jhon', 'Andy', 'Feedy', 'Edd', 'Jil', 'Jeck', 'Freddy'];
+   $collect = \collect($names);
+   dd($collect);
+});
 
 // Вывод новостей
 $text = "This is my project Laravel to learn Framework!";

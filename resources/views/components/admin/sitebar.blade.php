@@ -20,6 +20,18 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link @if(request()->routeIs('admin.source.*')) active @endif" href="{{ route('admin.source.index') }}">
+                    <span data-feather="shopping-cart"></span>
+                    Источники
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if(request()->routeIs('admin.orders.*')) active @endif" href="{{ route('admin.orders.index') }}">
+                    <span data-feather="shopping-cart"></span>
+                    Заказы
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="users"></span>
                     Пользователь

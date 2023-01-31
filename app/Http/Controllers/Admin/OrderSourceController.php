@@ -1,43 +1,38 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Source;
-use App\QueryBuilders\SourceQueryBuilder;
+use App\Models\OrderSource;
+use App\QueryBuilders\OrderSourceQueryBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class SourceController extends Controller
+class OrderSourceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param SourceQueryBuilder $sourceQueryBuilder
+     * @param OrderSourceQueryBuilder $orderSourceQueryBuilder
      * @return View
      */
-    public function index(SourceQueryBuilder $sourceQueryBuilder): View
+    public function index(OrderSourceQueryBuilder $orderSourceQueryBuilder): View
     {
-//        $model = new Source();
-//        $listSource = $model->getSources();
-
-        return \view('admin.source.index', [
-            'listSource' => $sourceQueryBuilder->getAll()
+        return \view('admin.orders.index', [
+            'listOrderSource' => $orderSourceQueryBuilder->getAll()
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return View
+     * @return Response
      */
-    public function create(): View
+    public function create()
     {
-        return \view('admin.source.create');
+        //
     }
 
     /**
@@ -49,13 +44,13 @@ class SourceController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name_source' => 'required',
+            'user_name' => 'required',
         ]);
 
-        $source = new Source($request->except('_token'));
+        $source = new OrderSource($request->except('_token'));
 
         if ($source->save()){
-            return \redirect()->route('admin.source.index')->with('success', 'Источник успешно добавлен');
+            return \redirect()->route('admin.orders.index')->with('success', 'Заказ успешно добавлен');
         }
 
         return \back()->with('error', 'Не удалось сохранить запись');
@@ -75,13 +70,13 @@ class SourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Source $source
+     * @param OrderSource $orderSource
      * @return View
      */
-    public function edit(Source $source): View
+    public function edit(OrderSource $orderSource): View
     {
-        return \view('admin.source.edit', [
-            'source' => $source
+        return \view('admin.orders.edit', [
+            'orderSource' => $orderSource
         ]);
     }
 
@@ -89,14 +84,14 @@ class SourceController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Source $source
+     * @param OrderSource $orderSource
      * @return RedirectResponse
      */
-    public function update(Request $request, Source $source): RedirectResponse
+    public function update(Request $request, OrderSource $orderSource): RedirectResponse
     {
-        $source = $source->fill($request->except('_token'));
-        if ($source->save()) {
-            return \redirect()->route('admin.source.index')->with('success', 'Источник успешно добавлен');
+        $orderSource = $orderSource->fill($request->except('_token'));
+        if ($orderSource->save()) {
+            return \redirect()->route('admin.orders.index')->with('success', 'Заказ успешно добавлен');
         }
         return \back()->with('error', 'Не удалось сохранить запись');
     }

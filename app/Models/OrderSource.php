@@ -7,16 +7,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Source extends Model
+class OrderSource extends Model
 {
     use HasFactory;
 
-    protected $table = 'source';
+    protected $table = 'order_source';
 
     protected $fillable = [
-        'name_source',
-        'link'
+        'user_name',
+        'phone',
+        'email',
+        'source',
     ];
-
-
 }

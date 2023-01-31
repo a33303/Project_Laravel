@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">Категории</h1>
+        <h1 class="h2">Список категории</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-
+            <a href="{{ route('admin.categories.create') }}">Добавить новость</a>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
                     <td>{{ $category->title }}</td>
                     <td>{{ $category->description }}</td>
                     <td>{{ $category->created_at }}</td>
-                    <td><a href="">Изм.</a> &nbsp; <a href="" style="color: red">Уд.</a></td>
+                    <td><a href="{{ route('admin.categories.edit', ['category' => $category]) }}">Изм.</a> &nbsp; <a href="" style="color: red">Уд.</a></td>
                 </tr>
             @empty
                 <tr>
@@ -34,5 +34,7 @@
             @endforelse
             </tbody>
         </table>
+
+        {{ $listCategories->links() }}
     </div>
 @endsection

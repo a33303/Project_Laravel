@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\News;
+use App\QueryBuilders\CategoriesQueryBuilder;
+use App\QueryBuilders\NewsQueryBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
@@ -15,16 +17,17 @@ class NewsController extends Controller
 {
     use NewsTrait;
 
-    public function index(): View|Factory|Application
+    public function index(NewsQueryBuilder $newsQueryBuilder,
+                          CategoriesQueryBuilder $categoriesQueryBuilder): View
     {
-        $model = new News();
-        $model_2 = new Category();
-        $listNews = $model->getNews();
-        $listCategories = $model_2->getCategories();
+//        $model = new News();
+//        $model_2 = new Category();
+//        $listNews = $model->getNews();
+//        $listCategories = $model_2->getCategories();
 
         return \view('news.index', [
-            'listNews' => $listNews,
-            'listCategories' => $listCategories,
+            'listNews' => $newsQueryBuilder->getAll(),
+            'listCategories' => $categoriesQueryBuilder->getAll(),
         ]);
 
 //        return \view('news.index', [
@@ -32,16 +35,15 @@ class NewsController extends Controller
 //            'categories' => $this->getCategories(),
 //        ]);
     }
-    public function show(int $id): View|Factory|Application
+    public function show(int $id, NewsQueryBuilder $newsQueryBuilder): View
     {
         $model = new News();
-        $model_2 = new Category();
+//        $model_2 = new Category();
         $listNews = $model->getNewsById($id);
-        $listCategories = $model_2->getCategoryById($id);
+//        $listCategories = $model_2->getCategoryById($id);
 
         return \view('news.show', [
-            'listNews' => $listNews,
-            'listCategories' => $listCategories,
+            'listNews' => $listNews
         ]);
     }
 }
