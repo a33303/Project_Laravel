@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderSource\EditRequest;
 use App\Models\OrderSource;
+use App\Models\Source;
 use App\QueryBuilders\OrderSourceQueryBuilder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -38,22 +41,23 @@ class OrderSourceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param EditRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(EditRequest $request): RedirectResponse
     {
-        $request->validate([
-            'user_name' => 'required',
-        ]);
-
-        $source = new OrderSource($request->except('_token'));
-
-        if ($source->save()){
-            return \redirect()->route('admin.orders.index')->with('success', 'Заказ успешно добавлен');
+//        $request->validate([
+//            'user_name' => 'required',
+//        ]);
+//
+//        $source = new OrderSource($request->except('_token'));
+        // *** Реализовать добавление заказа из админки
+        $orderSource = OrderSource::create($request->validated());
+        if ($orderSource->save()){
+            return \redirect()->route('admin.orders.index')->with('success',  __('messages.admin.order.success'));
         }
 
-        return \back()->with('error', 'Не удалось сохранить запись');
+        return \back()->with('error',  __('messages.admin.order.fail'));
     }
 
     /**
@@ -89,21 +93,29 @@ class OrderSourceController extends Controller
      */
     public function update(Request $request, OrderSource $orderSource): RedirectResponse
     {
-        $orderSource = $orderSource->fill($request->except('_token'));
-        if ($orderSource->save()) {
-            return \redirect()->route('admin.orders.index')->with('success', 'Заказ успешно добавлен');
+        $orderSource = $orderSource->fill($request->validated());
+        if ($orderSource->save()){
+            return \redirect()->route('admin.orders.index')->with('success',  __('messages.admin.order.success'));
         }
-        return \back()->with('error', 'Не удалось сохранить запись');
+
+        return \back()->with('error',  __('messages.admin.order.fail'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param OrderSource $orderSource
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(OrderSource $orderSource): JsonResponse
     {
-        //
+        try {
+            $orderSource->delete();
+
+            return \response()->json('ok');
+        } catch (\Exception $exception) {
+            \Log::error($exception->getMessage(), [$exception]);
+            return \response()->json('error',400 );
+        }
     }
 }

@@ -11,19 +11,19 @@
             @csrf
             <div class="form-group">
                 <label for="user_name">Ваше имя</label>
-                <input type="text" id="user_name" name="user_name" value="{{ old('user_name') }}" class="form-control" placeholder="Введите имя пользователя">
+                <input type="text" id="user_name" name="user_name" value="{{ old('user_name') }}" class="form-control @error('user_name') is-invalid @enderror" placeholder="Введите имя пользователя">
             </div>
             <div class="form-group">
                 <label for="phone">Ваш номер телефона</label>
-                <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="form-control" placeholder="Введите номер телефона">
+                <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror" placeholder="Введите номер телефона">
             </div>
             <div class="form-group">
                 <label for="email">Ваш Email-адрес</label>
-                <input type="text" id="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Введите email">
+                <input type="text" id="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Введите email">
             </div>
             <div class="form-group">
                 <label for="category_id">Категории</label>
-                <select class="form-control" name="category_id" id="category_id">
+                <select class="form-control  @error('category_id') is-invalid @enderror" name="category_id" id="category_id">
                     <option value="0">-- Выбрать --</option>
                     @foreach($listSource as $source)
                         <option @if(old('id') === $source->id) selected @endif value="{{ $source->id }}">{{ $source->name_source }}</option>

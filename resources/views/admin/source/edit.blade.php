@@ -17,12 +17,12 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="title">Имя источника</label>
-                <input type="text" id="title" name="title" value="{{ $source->name_source }}" class="form-control">
+                <label for="name_source">Имя источника</label>
+                <input type="text" id="name_source" name="name_source" value="{{ $source->name_source }}" class="form-control @error('name_source') is-invalid @enderror">
             </div>
             <div class="form-group">
-                <label for="description">Ссылка</label>
-                <textarea class="form-control" id="description" name="description">{!! $source->link !!}</textarea>
+                <label for="link">Ссылка</label>
+                <textarea class="form-control @error('link') is-invalid @enderror" id="link" name="link">{!! $source->link !!}</textarea>
             </div>
 
             <br>

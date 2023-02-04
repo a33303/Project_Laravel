@@ -17,13 +17,12 @@
             @csrf
             <div class="form-group">
                 <label for="name_source">Имя источника</label>
-                <input type="text" id="name_source" name="name_source" value="{{ old('name_source') }}" class="form-control">
+                <input type="text" id="name_source" name="name_source" value="{{ old('name_source') }}" class="form-control @error('name_source') is-invalid @enderror">
             </div>
             <div class="form-group">
                 <label for="link">Ссылка</label>
-                <textarea class="form-control" id="link" name="link">{!! old('link') !!}</textarea>
+                <textarea class="form-control @error('link') is-invalid @enderror" id="link" name="link">{!! old('link') !!}</textarea>
             </div>
-
             <br>
             <button type="submit" class="btn btn-success">Сохранить</button>
         </form>

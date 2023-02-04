@@ -18,36 +18,19 @@
             @method('put')
             <div class="form-group">
                 <label for="title">Имя источника</label>
-                <input type="text" id="title" name="title" value="{{ $orderSource->user_name }}" class="form-control">
+                <input type="text" id="title" name="title" value="{{ $orderSource->user_name }}" class="form-control @error('title') is-invalid @enderror">
             </div>
             <div class="form-group">
-                <label for="title">Имя источника</label>
-                <input type="text" id="title" name="title" value="{{ $orderSource->phone }}" class="form-control">
+                <label for="phone">Имя источника</label>
+                <input type="text" id="phone" name="phone" value="{{ $orderSource->phone }}" class="form-control @error('phone') is-invalid @enderror">
             </div>
             <div class="form-group">
-                <label for="title">Имя источника</label>
-                <input type="text" id="title" name="title" value="{{ $orderSource->email }}" class="form-control">
+                <label for="email">Имя источника</label>
+                <input type="text" id="email" name="email" value="{{ $orderSource->email }}" class="form-control @error('email') is-invalid @enderror">
             </div>
             <div class="form-group">
-                <label for="title">Имя источника</label>
-                <input type="text" id="title" name="title" value="{{ $orderSource->name_source }}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="title">Имя источника</label>
-                <input type="text" id="title" name="title" value="{{ $orderSource->name_source }}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="description">Ссылка</label>
-                <textarea class="form-control" id="description" name="description">{!! $order->link !!}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="category_id">Категории</label>
-                <select class="form-control" name="category_id" id="category_id">
-                    <option value="0">-- Выбрать --</option>
-                    @foreach($listSource as $source)
-                        <option @if(old('id') === $source->id) selected @endif value="{{ $source->id }}">{{ $source->name_source }}</option>
-                    @endforeach
-                </select>
+                <label for="name_source">Имя источника</label>
+                <input type="text" id="name_source" name="name_source" value="{{ $orderSource->name_source }}" class="form-control @error('name_source') is-invalid @enderror">
             </div>
             <br>
             <button type="submit" class="btn btn-success">Сохранить</button>

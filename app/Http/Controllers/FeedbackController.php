@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Feedback\CreateRequest;
+use App\Models\OrderSource;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -35,26 +37,27 @@ class FeedbackController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(CreateRequest $request): JsonResponse
     {
 //        $request->validate([
 //            'user' => 'required'
 //        ]);
 
-        Log::debug(print_r($request->all(),1));
-        $validator = Validator::make($request->all(), [
-            'user' => 'required|string',
-            'description' => 'required|string'
-        ], [
-            'user.required' => 'Нет имени пользователя',
-            'user.string' => 'Имя должно быть строкой',
-            'description.required' => 'Нет комментария',
-            'description.string' => 'Комментария должен быть строкой',
-        ]);
+      //  $data_string = OrderSource::create($request->validated());
 
+//        Log::debug(print_r($request->all(),1));
+//        $validator = Validator::make($request->all(), [
+//            'user.required' => 'Нет имени пользователя',
+//            'user.string' => 'Имя должно быть строкой',
+//            'description.required' => 'Нет комментария',
+//            'description.string' => 'Комментария должен быть строкой',
+//        ]);
+
+
+        $validator = OrderSource::create($request->validated());
         if ($validator->fails()) {
             Log::debug($validator->errors()->first());
             return \response()->json(['success'=> false]);

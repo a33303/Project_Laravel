@@ -11,6 +11,8 @@ class Source extends Model
 {
     use HasFactory;
 
+    public $timestamp = false;
+
     protected $table = 'source';
 
     protected $fillable = [

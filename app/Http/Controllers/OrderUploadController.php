@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderSource\CreateRequest;
 use App\Models\OrderSource;
 use App\QueryBuilders\SourceQueryBuilder;
 use Illuminate\Contracts\View\View;
@@ -40,17 +41,18 @@ class OrderUploadController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateRequest $request
      * @param OrderSource $orderSource
      * @return RedirectResponse
      */
-    public function store(Request $request, OrderSource $orderSource): RedirectResponse
+    public function store(CreateRequest $request, OrderSource $orderSource): RedirectResponse
     {
-        $orderSource = $orderSource->fill($request->except('_token', 'updated_at'));
+//        $orderSource = $orderSource->fill($request->except('_token', 'updated_at'));
+        $orderSource = OrderSource::create($request->validated());
         if($orderSource->save()) {
-            return \redirect()->route('home')->with('success', 'Запрос успешно сделан');
+            return \redirect()->route('home')->with('success', __('messages.admin.order.success'));
         }
-        return \back()->with('error', 'Не удалось сохранить запись');
+        return \back()->with('error', __('messages.admin.order.fail'));
         }
 
        // dd($request->all());
