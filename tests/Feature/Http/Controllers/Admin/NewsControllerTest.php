@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
+use App\Models\News;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -22,23 +23,23 @@ class NewsControllerTest extends TestCase
 
     public function testCreateSuccessStatus(): void
     {
-        $response = $this->get(route('admin.news.create'));
+               $response = $this->get(route('admin.news.create'));
 
         $response->assertStatus(200);
     }
 
     public function testCreateSaveSuccessDate(): void
     {
-        $data = [
-            'title' => \fake()->jobTitle(),
-            'author' => \fake()->userName(),
-            'description' => \fake()->text(100),
-        ];
+        $news = News::factory()->create();
+//        $data = [
+//            'title' => \fake()->jobTitle(),
+//            'author' => \fake()->userName(),
+//            'description' => \fake()->text(100),
+//        ];
 
-        $response = $this->post(route('admin.news.store'), $data);
+        $response = $this->post(route('admin.news.store'), $news);
 
-        $response->assertStatus(200)
-            ->json($data);
+        $response->assertStatus(200);
     }
 
     public function testValidateTitleData(): void

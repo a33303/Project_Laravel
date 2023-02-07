@@ -11,11 +11,11 @@
             @csrf
             <div class="form-group">
                 <label for="user">Имя пользователя</label>
-                <input type="text" id="user" name="user" value="{{ old('user') }}" class="form-control" placeholder="Введите имя пользователя">
+                <input type="text" id="user" name="user" value="{{ old('user') }}" class="form-control @error('user') is-invalid @enderror" placeholder="Введите имя пользователя">
             </div>
             <div class="form-group">
                 <label for="description">Комментарий</label>
-                <textarea class="form-control" id="description" name="description" placeholder="Оставьте или комментарий отзыв по работе проекта">{{ old('description') }}</textarea>
+                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Оставьте или комментарий отзыв по работе проекта">{{ old('description') }}</textarea>
             </div>
 
             <br>
