@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if(request()->routeIs('admin.categories.*')) active @endif" href="#">
+                <a class="nav-link @if(request()->routeIs('admin.categories.*')) active @endif" href="{{ route('admin.categories.index') }}">
                     <span data-feather="file"></span>
                     Категории
                 </a>
@@ -17,6 +17,18 @@
                 <a class="nav-link @if(request()->routeIs('admin.news.*')) active @endif" href="{{ route('admin.news.index') }}">
                     <span data-feather="shopping-cart"></span>
                     Новости
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if(request()->routeIs('admin.source.*')) active @endif" href="{{ route('admin.source.index') }}">
+                    <span data-feather="shopping-cart"></span>
+                    Источники
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if(request()->routeIs('admin.orders.*')) active @endif" href="{{ route('admin.orders.index') }}">
+                    <span data-feather="shopping-cart"></span>
+                    Заказы
                 </a>
             </li>
             <li class="nav-item">

@@ -7,19 +7,46 @@
         </div>
     </div>
     <div>
+        @if ($errors->any())
+            @foreach($errors->all() as $error)
+            <x-alert type="danger" :message="$error"></x-alert>
+            @endforeach
+        @endif
+
         <form method="post" action="{{ route('admin.news.store') }}">
             @csrf
             <div class="form-group">
+                <label for="category_ids">Категории</label>
+                <select class="form-control @error('category_ids') is-invalid @enderror" name="category_ids[]" id="category_ids" multiple>
+                    <option value="0">-- Выбрать --</option>
+                    @foreach($categories as $category)
+                        <option @if(old('category_id') === $category->id) selected @endif value="{{ $category->id }}">{{ $category->title }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="title">Заголовок</label>
-                <input type="text" id="title" name="title" value="{{ old('title') }}" class="form-control">
+                <input type="text" id="title" name="title" value="{{ old('title') }}" class="form-control @error('title') is-invalid @enderror">
             </div>
             <div class="form-group">
                 <label for="author">Автор</label>
-                <input type="text" id="author" name="author" value="{{ old('author') }}" class="form-control">
+                <input type="text" id="author" name="author" value="{{ old('author') }}" class="form-control @error('author') is-invalid @enderror">
+            </div>
+            <div class="form-group">
+                <label for="status">Cтатус</label>
+                <select class="form-control" name="status" id="status">
+                    @foreach($statuses as $status)
+                        <option @if((int) old('status') === $status) selected @endif>{{ $status }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="image">Изображение</label>
+                <input type="file" id="image" name="image" class="form-control">
             </div>
             <div class="form-group">
                 <label for="description">Описание</label>
-                <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
+                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description">{!! old('description') !!}</textarea>
             </div>
 
             <br>

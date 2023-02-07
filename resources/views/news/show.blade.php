@@ -7,10 +7,10 @@
         </h3>
 
         <div class="blog-post">
-            <h2 class="blog-post-title">{{ $news['title'] }}</h2>
-            <p class="blog-post-meta">{{ $news['created_at'] }}<br><a href="#">{{ $news['author'] }}</a></p>
+            <h2 class="blog-post-title">{{ $listNews->title }}</h2>
+            <p class="blog-post-meta">{{ $listNews->created_at }}<br><a href="#">{{ $listNews->author }}</a></p>
 
-            {!! $news['description'] !!}<br>
+            {!! $listNews->description !!}<br>
             <a href="{{ route('news') }}">Назад</a>
         </div><!-- /.blog-post -->
 
