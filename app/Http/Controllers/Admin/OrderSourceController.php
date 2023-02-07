@@ -46,14 +46,9 @@ class OrderSourceController extends Controller
      */
     public function store(EditRequest $request): RedirectResponse
     {
-//        $request->validate([
-//            'user_name' => 'required',
-//        ]);
-//
-//        $source = new OrderSource($request->except('_token'));
         // *** Реализовать добавление заказа из админки
         $orderSource = OrderSource::create($request->validated());
-        if ($orderSource->save()){
+        if ($orderSource){
             return \redirect()->route('admin.orders.index')->with('success',  __('messages.admin.order.success'));
         }
 

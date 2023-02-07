@@ -51,13 +51,8 @@ class SourceController extends Controller
      */
     public function store(CreateRequest $request): RedirectResponse
     {
-//        $request->validate([
-//            'name_source' => 'required',
-//        ]);
-//
-//        $source = new Source($request->except('_token'));
         $source = Source::create($request->validated());
-        if ($source->save()){
+        if ($source){
             return \redirect()->route('admin.source.index')->with('success',  __('messages.admin.source.success'));
         }
 
