@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\SourceController as AdminSourceController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\OrderSourceController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CategoriesController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrderUploadController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Account\IndexController as AccountController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,15 +30,20 @@ use Illuminate\Support\Facades\Route;
 // main route home
 Route::get('/', IndexController::class)
     ->name('home');
-
-// admin route
-Route::group(['prefix' => 'admin', 'as'=> 'admin.'], static function() {
-    Route::get('/', AdminController::class)
-        ->name('index');
-    Route::resource('categories', AdminCategoryController::class);
-    Route::resource('news', AdminNewsController::class);
-    Route::resource('source', AdminSourceController::class);
-    Route::resource('orders', OrderSourceController::class);
+//
+Route::group(['middleware' => 'auth'], static function (){
+    Route::get('/logout', [LoginController::class, 'logout'])->name('account.logout');
+    Route::get('/account', AccountController::class)->name('account');
+    // admin route
+    Route::group(['prefix' => 'admin', 'as'=> 'admin.', 'middleware' => 'is.admin'], static function() {
+        Route::get('/', AdminController::class)
+            ->name('index');
+        Route::resource('categories', AdminCategoryController::class);
+        Route::resource('news', AdminNewsController::class);
+        Route::resource('source', AdminSourceController::class);
+        Route::resource('orders', OrderSourceController::class);
+        Route::resource('users', AdminUserController::class);
+    });
 });
 
 // main route news
@@ -69,6 +77,18 @@ Route::get('/hello/{name}', static function (string $name): string {
     return "Hello, {$name}";
 });
 
+// Session
+Route::get('session', function(){
+    $sessionName = 'test';
+    if (session()->has($sessionName)) {
+       // dd(session()->get($sessionName), session()->all());
+        session()->forget($sessionName);
+    }
+    dd(session()->all());
+    session()->put($sessionName);
+});
+
+
 // Collection
 Route::get('/collection', function() {
    $names = ['Ann', 'Billy', 'Sam', 'Jhon', 'Andy', 'Feedy', 'Edd', 'Jil', 'Jeck', 'Freddy'];
@@ -91,3 +111,7 @@ Route::get('/project', static function () use ($text): string {
     </html>
     php;
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

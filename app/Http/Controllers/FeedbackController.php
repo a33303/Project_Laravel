@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Feedback\CreateRequest;
@@ -42,37 +44,16 @@ class FeedbackController extends Controller
      */
     public function store(CreateRequest $request): JsonResponse
     {
-//        $request->validate([
-//            'user' => 'required'
-//        ]);
-
-      //  $data_string = OrderSource::create($request->validated());
-
-//        Log::debug(print_r($request->all(),1));
-//        $validator = Validator::make($request->all(), [
-//            'user.required' => 'Нет имени пользователя',
-//            'user.string' => 'Имя должно быть строкой',
-//            'description.required' => 'Нет комментария',
-//            'description.string' => 'Комментария должен быть строкой',
-//        ]);
-
-
         $validator = OrderSource::create($request->validated());
         if ($validator->fails()) {
             Log::debug($validator->errors()->first());
             return \response()->json(['success'=> false]);
         }
 
-//      $file = fopen("testfile.txt", "w");
         $data_string = "*********\nUSER: $request->user
                                  \nDESCRIPTION: $request->description
                                  \n*******\n";
         $file = file_put_contents("feedback/log_feedback.txt", $data_string, FILE_APPEND);
-        //$path = Storage::disk('public')->put('/', $file);
-
-//        return response()->back()->with([
-//
-//        ]);
         return \response()->json(['success'=> true]);//error , message
     }
 

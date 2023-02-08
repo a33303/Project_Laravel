@@ -51,7 +51,7 @@ class CategoryController extends Controller
        // $category = new Category($request->except('_token', 'news_id'));
 
         $category = Category::create($request->validated());
-        if ($category->save()){
+        if ($category){
             return \redirect()->route('admin.categories.index')->with('success', __('messages.admin.category.success'));
         }
 
