@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\SourceController as AdminSourceController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Admin\OrderSourceController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CategoriesController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\OrderUploadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SocialProvidersController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +41,7 @@ Route::group(['middleware' => 'auth'], static function (){
     Route::group(['prefix' => 'admin', 'as'=> 'admin.', 'middleware' => 'is.admin'], static function() {
         Route::get('/', AdminController::class)
             ->name('index');
+        Route::get('/parser', ParserController::class)->name('parser');
         Route::resource('categories', AdminCategoryController::class);
         Route::resource('news', AdminNewsController::class);
         Route::resource('source', AdminSourceController::class);
@@ -77,6 +81,16 @@ Route::get('/hello/{name}', static function (string $name): string {
     return "Hello, {$name}";
 });
 
+Route::group(['middleware' => 'guest'], function (){
+    Route::get('/auth/redirect/{driver}', [SocialProvidersController::class, 'redirect'])
+        ->where('driver', '\w+')
+        ->name('social.auth.redirect');
+    Route::get('/auth/callback/{driver}', [SocialProvidersController::class, 'callback'])
+        ->where('driver', '\w+');
+});
+
+
+
 // Session
 Route::get('session', function(){
     $sessionName = 'test';
@@ -87,7 +101,6 @@ Route::get('session', function(){
     dd(session()->all());
     session()->put($sessionName);
 });
-
 
 // Collection
 Route::get('/collection', function() {
@@ -114,4 +127,4 @@ Route::get('/project', static function () use ($text): string {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('index');
