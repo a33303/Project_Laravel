@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Source extends Model
 {
@@ -20,5 +21,8 @@ class Source extends Model
         'link'
     ];
 
-
+    public function getSourceById(int $id): mixed
+    {
+        return DB::table($this->table)->find($id);
+    }
 }

@@ -24,7 +24,9 @@
                     <p class="card-text mb-auto">{!! $news->description !!}</p>
                     <a href="{{ route('news.show', ['id' => $news->id]) }}">Читать далее</a>
                 </div>
-                <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap">
+                <img class="card-img-right flex-auto d-none d-md-block"
+                     src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($news->image) }}"
+                     alt="Card image cap" style="width: 200px">
             </div>
         </div>
 @empty

@@ -11,6 +11,7 @@ use App\Http\Requests\News\EditRequest;
 use App\Models\News;
 use App\QueryBuilders\CategoriesQueryBuilder;
 use App\QueryBuilders\NewsQueryBuilder;
+use App\Services\UploadService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -98,13 +99,19 @@ class NewsController extends Controller
      *
      * @param EditRequest $request
      * @param News $news
+     * @param UploadService $uploadService
      * @return RedirectResponse
      */
-    public function update(EditRequest $request, News $news): RedirectResponse
+    public function update(EditRequest $request, News $news, UploadService $uploadService): RedirectResponse
     {
-        //dd($request->all());
-        $news = $news->fill($request->validated());
-        if ($news->save()) {
+        $validates = $request->validated();
+        $news = $news->fill($validates);
+
+        if ($request->hasFile('image')) {
+            $validates['image'] = $uploadService->uploadImage($request->file('image'));
+        }
+
+        if ($news->update($validates)) {
             $news->categories()->sync($request->getCategoryIds());
             return \redirect()->route('admin.news.index')->with('success', __('messages.admin.news.success'));
         }
