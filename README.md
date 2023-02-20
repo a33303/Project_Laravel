@@ -1,7 +1,7 @@
 # Laravel 8.2
 <h3>This is my project blog_news in Laravel \ MySQL DB</h3>
 
-Проект новостного сайта созданный с помощью Laravel с рабочей моделью получения данных в БД MySQL через парсинг RSS каналов с применением очередей (queue) Redis / Database.
+Проект новостного сайта созданный с помощью Laravel с рабочей моделью получения данных в БД MySQL через парсинг RSS каналов с применением очередей (queue) Redis / Database и технологией аутентификации пользователя через соц. сети или регистрации нового пользователя.
 
 Описание таблиц :<br>
 <b>categories</b>	-	в таблице содержатся данные об категориях новостей. <br>
@@ -23,7 +23,12 @@
 <b>	Mailhog	</b> - технология оповещения пользователя (пример, смена пароля) <br>
 <b>	MySQL 8.0</b> - регуляционная БД <br>
 <b>	NGNIX:Alpine</b> - движок для БД <br>
+<b>	Eloquent ORM</b> - работа с БД <br>
 <b>	Redis version=7.0.7	</b> - хранилище данных типа «ключ‑значение» <br>
+<b>	CKEditor4 + Laravel File Manager	</b> - хранилище файлов и изображений с возьможностью редактирования текста. <br>
+<b>	laravel/ui --dev </b> - реализована базовая аутентификация<br>
+<b>	Socialiteproviders </b> - провайдер реализован через Паттерн «Наблюдатель»<br>
+<b>	Laravel Socialite + OAuth + Socialiteproviders </b> создана система авторизации через социальную сеть <br>
 
 Schema Database: <br>
-![schema_bd](https://user-images.githubusercontent.com/64500585/220028674-b3f6018c-86ef-45ea-b802-6b194d8cff15.PNG)
+
