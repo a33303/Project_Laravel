@@ -1,4 +1,5 @@
 # Laravel 8.2
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 <h3>This is my project blog_news in Laravel \ MySQL DB</h3>
 
 Проект новостного сайта созданный с помощью Laravel с рабочей моделью получения данных в БД MySQL через парсинг RSS каналов с применением очередей (queue) Redis / Database и технологией аутентификации пользователя через соц. сети или регистрации нового пользователя.
