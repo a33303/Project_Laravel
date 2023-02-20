@@ -25,5 +25,5 @@
 <b>	NGNIX:Alpine</b> - движок для БД <br>
 <b>	Redis version=7.0.7	</b> - хранилище данных типа «ключ‑значение» <br>
 
-Schema Database:
+Schema Database: <br>
 ![schema_bd](https://user-images.githubusercontent.com/64500585/220028674-b3f6018c-86ef-45ea-b802-6b194d8cff15.PNG)
