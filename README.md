@@ -32,7 +32,7 @@
 <b>	Socialiteproviders </b> - провайдер реализован через Паттерн «Наблюдатель»<br>
 <b>	Laravel Socialite + OAuth + Socialiteproviders </b> создана система авторизации через социальную сеть <br>
 <b>	MVC </b> система построения архитектуры приложения <br>
-<b>	Docker </b> приложения реализовал через Docker <br>
+<b>	Docker </b> приложение реализовал через Docker <br>
 
 Schema Database: <br>
 ![image](https://user-images.githubusercontent.com/64500585/220036050-e7ed2448-2fcb-44c5-8f91-7bdba77aa466.png)
