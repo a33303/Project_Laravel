@@ -21,6 +21,7 @@
 
 Технологии проекта:<br>
 <b>	Laravel 8.2	</b> - flamework PHP <br>
+<b>	Blades	</b> - технология построения фронтальной части сайта <br>
 <b>	Mailhog	</b> - технология оповещения пользователя (пример, смена пароля) <br>
 <b>	MySQL 8.0</b> - регуляционная БД <br>
 <b>	NGNIX:Alpine</b> - движок для БД <br>
@@ -30,6 +31,7 @@
 <b>	laravel/ui --dev </b> - реализована базовая аутентификация<br>
 <b>	Socialiteproviders </b> - провайдер реализован через Паттерн «Наблюдатель»<br>
 <b>	Laravel Socialite + OAuth + Socialiteproviders </b> создана система авторизации через социальную сеть <br>
+<b>	MVC </b> система построения архитектуры приложения <br>
 
 Schema Database: <br>
 ![image](https://user-images.githubusercontent.com/64500585/220036050-e7ed2448-2fcb-44c5-8f91-7bdba77aa466.png)
