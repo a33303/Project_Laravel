@@ -17,6 +17,7 @@ use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SocialProvidersController;
 use App\Http\Controllers\HomeController;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,13 +36,22 @@ Route::get('/', IndexController::class)
     ->name('home');
 //
 Route::group(['middleware' => 'auth'], static function (){
-    Route::get('/logout', [LoginController::class, 'logout'])->name('account.logout');
-    Route::get('/account', AccountController::class)->name('account');
+    Route::get('/logout', [LoginController::class, 'logout'])
+        ->name('account.logout');
+    Route::get('/account', AccountController::class)
+        ->name('account');
+
+    // filemanager route
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web']], static function () {
+        Lfm::routes();
+    });
+
     // admin route
     Route::group(['prefix' => 'admin', 'as'=> 'admin.', 'middleware' => 'is.admin'], static function() {
         Route::get('/', AdminController::class)
             ->name('index');
-        Route::get('/parser', ParserController::class)->name('parser');
+        Route::get('/parser', ParserController::class)
+            ->name('parser');
         Route::resource('categories', AdminCategoryController::class);
         Route::resource('news', AdminNewsController::class);
         Route::resource('source', AdminSourceController::class);

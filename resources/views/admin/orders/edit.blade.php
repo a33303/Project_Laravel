@@ -35,5 +35,9 @@
             <br>
             <button type="submit" class="btn btn-success">Сохранить</button>
         </form>
+            <br>
+            <button class="btn btn-danger">
+                <a href="{{ route('admin.orders.index') }}" style="text-decoration: none; color: #EEEEEE">Отменить</a>
+            </button>
     </div>
 @endsection

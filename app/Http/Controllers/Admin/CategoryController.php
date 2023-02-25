@@ -92,7 +92,8 @@ class CategoryController extends Controller
     public function update(EditRequest $request, Category $category): RedirectResponse
     {
         //$category = $category->fill($request->except('_token'));
-        $category = $category->fill($request->validated());
+        $validates = $request->validated();
+        $category = $category->fill($validates);
         if ($category->save()) {
             return \redirect()->route('admin.categories.index')->with('success', __('messages.admin.categories.success'));
         }

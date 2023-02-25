@@ -18,11 +18,6 @@ class SourceQueryBuilder extends QueryBuilder
         $this->model = Source::query();
     }
 
-    public function getSourceWithPagination(int $quantity = 10): LengthAwarePaginator
-    {
-        return $this->model->with('source')->paginate($quantity);
-    }
-
     function getAll(): Collection
     {
         return Source::query()->get();

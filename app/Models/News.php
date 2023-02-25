@@ -17,11 +17,13 @@ class News extends Model
 
     protected $table = 'news';
     protected $fillable = [
+        'guid',
         'title',
         'author',
         'status',
         'image',
-        'description'
+        'description',
+        'link',
     ];
 
     protected $casts = [
@@ -40,17 +42,10 @@ class News extends Model
         return $this->belongsToMany(Category::class,
             'category_has_news', 'news_id', 'category_id', 'id', 'id' );
     }
-//    public function getNews(): Collection
-//    {
-//        return DB::table($this->table)->select("id", "title", "author", "status", "description", "created_at")->get();
-//        //return DB::select("SELECT id, title, author, status, description, created_at from {$this->table}");
-//    }
-//
+
     public function getNewsById(int $id): mixed
     {
         return DB::table($this->table)->find($id);
-//        return DB::selectOne("SELECT id, title, author, status, description, created_at from {$this->table} WHERE id = :id", [
-//            'id' => $id
-//        ]);
+
     }
 }
